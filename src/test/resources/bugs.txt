@@ -1,0 +1,21 @@
+1. Issue found in getColor method; works properly with input data "BLUE" only and does not work correctly with any other value.
+The reason is that method returns value "BLUE" instead of variable.
+2. Issue found in write method - inkContainerValue parameter increases in case when negative sizeLetter value set;
+Works properly with sizeLetter >= 0, if sizeLetter < 0, after write method work increases, but should not change.
+Bug occurs due to lack of sizeLetter value validation - in reality negative value can not be applied to letter size.
+3. Issue found in write method - spaces are not excluded while ink consumption counting;
+Works fine if input data does not contain spaces, if input string contains spaces, result will be incorrect.
+Additional validation should be added - if space -> no ink waisted should be.
+Proposed solution: add regexp to exclude spaces in string before pass this string into method.
+4. Issue found in write method - text will be written if size of letters is 0;
+Works properly if sizeLetter > 0, failed with sizeLetter = 0.
+Bug occurs due to sizeLetter variable validation is absent.
+5. Issue found in write method - sizeLetter < 0 may be passed into method and input string will be written entirely;
+Method works properly if sizeLetter > 0 and if sizeLetter < 0 - fails.
+Bug occurs due to sizeLetter variable validation is absent.
+Proposed solution: it should be prohibited to pass negative values into sizeLetter variable.
+6. Issue found in write method - incorrect string result returns, output string does not proportionally decreases when size of letters
+increases;
+Method works correctly when sizeLetter == 1.0, bug replicates in cases sizeLetter < 1.0 and ink volume is not enough to write
+the entire word.
+The reason is that due to condition in method, part of output word length will always equal inkContainer value.
